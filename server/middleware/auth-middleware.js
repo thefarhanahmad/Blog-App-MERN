@@ -3,16 +3,16 @@ const User = require("../models/userModel");
 const auth = async (req, res, next) => {
   try {
     const token = req.headers["authorization"].replace("Bearer", "").trim();
-    console.log("token from headers :", token);
+    // console.log("token from headers :", token);
 
     try {
       const decodedToken = await jwt.verify(token, process.env.SECRET_KEY);
-      console.log("decoded token : ", decodedToken);
+      // console.log("decoded token : ", decodedToken);
 
       const user = await User.findOne({
         email: decodedToken.email,
       }).select({ password: 0 });
-      console.log("user after decoded : ", user);
+      // console.log("user after decoded : ", user);
       // console.log("req : ",req)
       req.user = user;
       // console.log("req : ",req)

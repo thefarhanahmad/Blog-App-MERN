@@ -39,3 +39,7 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`App is running at port no. ${PORT}`);
 })
+
+app.get("/",(req,res)=>{
+  res.send("App is running...")
+})
