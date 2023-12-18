@@ -1,0 +1,124 @@
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const CreatePostForm = () => {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  // console.log("base url : ", baseUrl);
+
+  const navigate = useNavigate();
+
+  // state variable declared
+  const { user } = useSelector((state) => state.auth);
+  const UserId = user?._id;
+  // console.log("user : ", UserId);
+
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+  });
+  // console.log("Data  : ", data);
+
+  const [image, setImage] = useState(null);
+  // console.log("Image : ", image);
+
+  //   handle change for image
+  const handleImageChange = (e) => {
+    console.log("e in image change : ", e.target.files[0]);
+    setImage(e.target.files[0]);
+  };
+
+  //   handle change for data
+  const handleOnChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  //   handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      console.log("form data : ", formData);
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("UserId", UserId);
+      formData.append("image", image);
+      console.log("formdata after appended : ", formData);
+      const response = await axios.post(`${baseUrl}/post/create`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      // console.log("response : ", response);
+      toast.success("Post created successfully!");
+      navigate("/");
+    } catch (error) {
+      console.log("error during create post : ", error);
+    }
+  };
+
+  return (
+    <div className="sm:w-[80%] w-[95%] mx-auto pt-8 sm:pt-14">
+      <span className="text-xs text-gray-500">
+        Hey{" "}
+        <span className="text-sm font-semibold text-gray-700">
+          {user?.username}
+        </span>{" "}
+        create your post here
+      </span>
+
+      <form onSubmit={handleSubmit}>
+        <div className="bg-white rounded border mt-1 border-gray-500 flex flex-col p-6 gap-6">
+          {/* input and label */}
+          <div className="flex flex-col ">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="your title..."
+              value={data.title}
+              onChange={handleOnChange}
+              required
+              className="bg-gray-300 rounded border border-gray-500 py-1 px-2 outline-none"
+            />
+          </div>
+          {/* input and label */}
+          <div className="flex flex-col ">
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              placeholder="your description..."
+              value={data.description}
+              onChange={handleOnChange}
+              required
+              className="bg-gray-300 rounded py-1  border-gray-500 px-2 border outline-none"
+            />
+          </div>
+          {/* input and label */}
+          <div className="flex flex-col">
+            <label htmlFor="image">Select Image</label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+              className=" bg-gray-300 rounded p-1 border border-gray-500"
+            />
+          </div>
+          <button
+            className="w-full bg-blue-600 border border-gray-500 text-white font-semibold rounded text-lg p-2"
+            type="submit"
+          >
+            Create Post
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default CreatePostForm;
