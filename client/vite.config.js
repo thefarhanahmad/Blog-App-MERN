@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// client/vite.config.js
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export default {
   plugins: [react()],
-})
+  build: {
+    rollupOptions: {
+      external: ['date-fns'], // Use a string instead of an import
+    },
+  },
+  base: '/',
+};
