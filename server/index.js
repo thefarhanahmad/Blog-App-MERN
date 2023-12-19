@@ -6,8 +6,14 @@ require('dotenv').config();
 
 //middleware
 app.use(express.json());
-app.use(cors())
 app.use(errorHandlingMiddleware)
+const corsOptions = {
+  origin: 'https://theblog-app.netlify.app/', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
 
 //fileupload middleware to parse data from files.file
 const fileUpload = require("express-fileupload");
