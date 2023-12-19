@@ -83,7 +83,7 @@ const Login = () => {
               value={user.email}
               onChange={userHandler}
               required
-              className="bg-gray-200 border py-1 px-3 rounded text-white border-gray-600 shadow outline-none"
+              className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
 
@@ -98,7 +98,7 @@ const Login = () => {
               value={user.password}
               onChange={userHandler}
               required
-              className="bg-gray-200 border py-1 px-3 rounded text-white border-gray-600 shadow outline-none"
+              className="bg-gray-200 border py-1 text-gray-800 px-3 rounded  border-gray-600 shadow outline-none"
             />
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -43,6 +43,23 @@ const EditPost = () => {
     }
   };
 
+  const editData = async ()=>{
+    try {
+      const res = await axios.get(`${baseUrl}/post/post-details/${id}`)
+      console.log("res: ",res.data.post)
+      setData({
+        newTitle:res.data.post.title,
+        newDescription:res.data.post.description
+      })
+    } catch (error) {
+      console.log("error in editpage while fetch post")
+    }
+  }
+
+useEffect(()=>{
+editData()
+},[id])
+
   return (
     <div className="sm:w-[80%] h-screen w-[95%] mx-auto pt-8 sm:pt-14">
       <span className="text-xs text-gray-500">
@@ -72,6 +89,7 @@ const EditPost = () => {
           <div className="flex flex-col ">
             <label htmlFor="newDescription">Description</label>
             <textarea
+            rows={8}
               name="newDescription"
               placeholder="new description..."
               value={data.newDescription}

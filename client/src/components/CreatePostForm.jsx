@@ -61,7 +61,7 @@ const CreatePostForm = () => {
   };
 
   return (
-    <div className="sm:w-[80%] w-[95%] mx-auto pt-8 sm:pt-14">
+    <div className="sm:w-[80%] w-[95%] mx-auto pt-4 sm:pt-14">
       <span className="text-xs text-gray-500">
         Hey{" "}
         <span className="text-sm font-semibold text-gray-700">
@@ -89,6 +89,7 @@ const CreatePostForm = () => {
           <div className="flex flex-col ">
             <label htmlFor="description">Description</label>
             <textarea
+            rows={6}
               name="description"
               placeholder="your description..."
               value={data.description}

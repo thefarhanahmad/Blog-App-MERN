@@ -75,7 +75,7 @@ const Navbar = () => {
         {/* responsive navbar */}
 
         <button
-          className="flex sm:hidden  flex-col gap-1"
+          className="flex sm:hidden text-2xl flex-col gap-1"
           onClick={() => setOpenMenu((pre) => !pre)}
         >
           {openMenu ? <RxCross2 /> : <BiMenu />}
@@ -87,7 +87,18 @@ const Navbar = () => {
           className=" backdrop-blur  flex w-full justify-center h-screen absolute z-20 transition-all duration-200"
         >
           {token ? (
-            <div className="flex flex-col gap-6 bg-white absolute top-0 w-full border border-gray-300 items-center z-40 py-20 h-fit text-lg font-semibold text-gray-800">
+            <div className="flex flex-col gap-6 bg-white absolute top-0 w-full border border-gray-300 items-center z-40 py-14 h-fit text-lg font-semibold text-gray-800">
+              <Link
+                onClick={() => setOpenMenu(false)}
+                className={`${
+                  location === "/"
+                    ? "underline underline-offset-4 transition-all duration-200"
+                    : "no-underline"
+                }`}
+                to={"/"}
+              >
+                Posts
+              </Link>
               <Link
                 onClick={() => setOpenMenu(false)}
                 className={`${
@@ -112,7 +123,18 @@ const Navbar = () => {
               </Link>
             </div>
           ) : (
-            <div className="flex flex-col gap-6 bg-white absolute top-0 w-full border border-gray-300 items-center z-40 py-20 h-fit text-lg font-semibold text-gray-800">
+            <div className="flex flex-col gap-6 bg-white absolute top-0 w-full border border-gray-300 items-center z-40 py-14 h-fit text-lg font-semibold text-gray-800">
+              <Link
+                onClick={() => setOpenMenu(false)}
+                className={`${
+                  location === "/"
+                    ? "underline underline-offset-4 transition-all duration-200"
+                    : "no-underline"
+                }`}
+                to={"/"}
+              >
+                Posts
+              </Link>
               <Link
                 onClick={() => setOpenMenu(false)}
                 className={`${

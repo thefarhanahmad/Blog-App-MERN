@@ -75,7 +75,7 @@ const Register = () => {
               value={user.username}
               onChange={userHandler}
               required
-              className="bg-gray-200 border py-1 px-3 rounded text-white border-gray-600 shadow outline-none"
+              className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
 
@@ -90,7 +90,7 @@ const Register = () => {
               value={user.email}
               onChange={userHandler}
               required
-              className="bg-gray-200 border py-1 px-3 rounded text-white border-gray-600 shadow outline-none"
+              className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
 
@@ -105,7 +105,7 @@ const Register = () => {
               value={user.password}
               onChange={userHandler}
               required
-              className="bg-gray-200 border py-1 px-3 rounded text-white border-gray-600 shadow outline-none"
+              className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
 

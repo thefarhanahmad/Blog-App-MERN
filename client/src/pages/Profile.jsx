@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeToken, removeUser } from "../store/slices/authSlice";
 import Spinner from "../components/Spinner";
+import toast from "react-hot-toast"
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -15,6 +16,7 @@ const Profile = () => {
     localStorage.clear("token");
     dispatch(removeToken());
     dispatch(removeUser());
+    toast.success("Log Out successfull")
     navigate("/login");
   };
 
