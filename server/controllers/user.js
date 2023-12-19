@@ -12,7 +12,7 @@ const user = async (req, res, next) => {
       });
     }
 
-    console.log("LoggedIn user verified successfully");
+    // console.log("LoggedIn user verified successfully");
 
     return res.status(200).json({
       success: true,

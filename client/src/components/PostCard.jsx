@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { MdDelete, MdEdit } from "react-icons/md";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { formatDistanceToNow } from "date-fns";
 
 const PostCard = ({ post, setPosts }) => {
   const { user } = useSelector((state) => state.auth);
@@ -12,8 +11,15 @@ const PostCard = ({ post, setPosts }) => {
 
   // console.log("post  : ",post)
 
-  const timeAgo = formatDistanceToNow(new Date(post?.createdAt), {
-    addSuffix: true,
+  const rawDate = post?.createdAt;
+  const formattedDate = new Date(rawDate).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    // second: "2-digit",
+    // timeZoneName: 'short'
   });
 
   const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -40,7 +46,7 @@ const PostCard = ({ post, setPosts }) => {
       </div>
       <div className="w-full sm:w-[40%] flex flex-col gap-1 sm:p-0 pl-1">
         <span className="text-2xl font-bold">{post?.title}</span>
-        <span className="text-xs text-gray-500">{timeAgo}</span>
+        <span className="text-xs text-gray-500">{formattedDate}</span>
         <span className="text-sm font-semibold text-gray-800">
           <span className="text-xs text-gray-500">by</span>{" "}
           {post?.author.username}
