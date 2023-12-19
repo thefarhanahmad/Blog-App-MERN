@@ -8,9 +8,9 @@ require('dotenv').config();
 app.use(express.json());
 app.use(errorHandlingMiddleware)
 const corsOptions = {
-  origin: 'https://theblog-app.netlify.app/', 
+  origin: '*', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  credentials: true, 
 };
 
 app.use(cors(corsOptions));
