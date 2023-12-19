@@ -5,7 +5,7 @@ export default {
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['date-fns'], // Use a string instead of an import
+      external: /^date-fns($|\/)/,
     },
   },
   base: '/',
