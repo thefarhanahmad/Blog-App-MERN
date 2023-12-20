@@ -40,7 +40,7 @@ const PostCard = ({ post, setPosts }) => {
       <div className="w-full sm:w-[40%] h-40 overflow-hidden border-r">
         <img
           className="w-full h-full object-cover"
-          src={post.imageUrl}
+          src={post?.imageUrl}
           alt="post image"
         />
       </div>
@@ -49,7 +49,7 @@ const PostCard = ({ post, setPosts }) => {
         <span className="text-xs text-gray-500">{formattedDate}</span>
         <span className="text-sm font-semibold text-gray-800">
           <span className="text-xs text-gray-500">by</span>{" "}
-          {post?.author.username}
+          {post?.author?.username}
         </span>
         <span className="text-sm">
           {post?.description.length > 90 ? (
