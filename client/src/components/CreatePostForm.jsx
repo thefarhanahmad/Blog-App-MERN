@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const CreatePostForm = () => {
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   // console.log("base url : ", baseUrl);
+  const { token } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
@@ -50,6 +51,7 @@ const CreatePostForm = () => {
       const response = await axios.post(`${baseUrl}/post/create`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       });
       // console.log("response : ", response);
@@ -89,7 +91,7 @@ const CreatePostForm = () => {
           <div className="flex flex-col ">
             <label htmlFor="description">Description</label>
             <textarea
-            rows={6}
+              rows={6}
               name="description"
               placeholder="your description..."
               value={data.description}
