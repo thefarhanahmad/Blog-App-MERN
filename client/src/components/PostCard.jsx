@@ -36,7 +36,7 @@ const PostCard = ({ post, setPosts }) => {
   };
 
   return (
-    <div className="bg-white p-3 sm:p-5 md:w-[60%] relative sm:flex-row pb-9 flex-col flex w-[90%] sm:w-[80%] sm:gap-6 gap-4 rounded-md overflow-hidden mx-auto">
+    <div className="bg-white p-3 shadow sm:p-5 md:w-[60%] relative sm:flex-row pb-9 flex-col flex w-[90%] sm:w-[80%] sm:gap-6 gap-4 rounded-md overflow-hidden mx-auto">
       <div className="w-full sm:w-[40%] h-40 overflow-hidden border-r">
         <img
           className="w-full h-full object-cover"

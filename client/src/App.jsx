@@ -13,6 +13,7 @@ import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import EditPost from "./pages/EditPost";
 import ViewPost from "./pages/ViewPost";
+import MyPosts from "./pages/MyPosts";
 
 function App() {
   const { token } = useSelector((state) => state.auth);
@@ -51,6 +52,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/posts" element={<MyPosts />} />
         <Route path="/post/:id" element={<ViewPost />} />
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/edit-post/:id" element={<EditPost />} />

@@ -1,4 +1,5 @@
 const Post = require("../models/postModel");
+const User = require("../models/userModel");
 const cloudinary = require("cloudinary").v2;
 
 // create post handler
@@ -54,13 +55,30 @@ const createPost = async (req, res, next) => {
       author: UserId,
     });
 
+    // fetcing user to push post in userpost
+    const user = req.user;
+    // console.log("user in post controller : ", user);
+
+    // update users and push created post in logged in user
+    const updatedUserPost = await User.findByIdAndUpdate(
+      { _id: user._id },
+
+      {
+        $push: {
+          posts: post._id,
+        },
+      },
+      { new: true }
+    ).populate("posts");
+
+    console.log("Updated user posts : ",updatedUserPost)
     res.status(200).json({
       success: true,
       message: "Post Created successfully",
       post: post,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
@@ -80,8 +98,7 @@ const getAllPost = async (req, res, next) => {
       posts: post,
     });
   } catch (error) {
-   
-    next(error)
+    next(error);
   }
 };
 
@@ -104,8 +121,7 @@ const findPostById = async (req, res, next) => {
       post: post,
     });
   } catch (error) {
-    
-    next(error)
+    next(error);
   }
 };
 
@@ -131,8 +147,7 @@ const deletePost = async (req, res, next) => {
       post: post,
     });
   } catch (error) {
-   
-    next(error)
+    next(error);
   }
 };
 
@@ -142,14 +157,14 @@ const updatePost = async (req, res, next) => {
     const { postId } = req.params;
     const { newTitle, newDescription } = req.body;
 
-    console.log("post id",postId)
-    console.log("new title and desc",newTitle,newDescription)
+    console.log("post id", postId);
+    console.log("new title and desc", newTitle, newDescription);
 
     const updatedPost = await Post.findByIdAndUpdate(
       postId,
       {
-       title: newTitle,
-       description:newDescription,
+        title: newTitle,
+        description: newDescription,
       },
       { new: true }
     );
@@ -167,9 +182,14 @@ const updatePost = async (req, res, next) => {
       post: updatedPost,
     });
   } catch (error) {
-   
-    next(error)
+    next(error);
   }
 };
 
-module.exports = { createPost, getAllPost, findPostById, deletePost,updatePost };
+module.exports = {
+  createPost,
+  getAllPost,
+  findPostById,
+  deletePost,
+  updatePost,
+};

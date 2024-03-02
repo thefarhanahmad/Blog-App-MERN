@@ -37,6 +37,16 @@ const Navbar = () => {
               </Link>
               <Link
                 className={`${
+                  location === "/posts"
+                    ? "underline underline-offset-4 transition-all duration-200"
+                    : "no-underline"
+                }`}
+                to={"/posts"}
+              >
+                My Posts
+              </Link>
+              <Link
+                className={`${
                   location === "/profile"
                     ? "underline underline-offset-4 transition-all duration-200"
                     : "no-underline"
@@ -109,6 +119,16 @@ const Navbar = () => {
                 to={"/create-post"}
               >
                 Create Post
+              </Link>
+              <Link
+                className={`${
+                  location === "/posts"
+                    ? "underline underline-offset-4 transition-all duration-200"
+                    : "no-underline"
+                }`}
+                to={"/posts"}
+              >
+                My Posts
               </Link>
               <Link
                 onClick={() => setOpenMenu(false)}

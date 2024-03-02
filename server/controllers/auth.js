@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// signup controller
 const registerUser = async (req, res, next) => {
   try {
     // fetch user and validate
@@ -43,6 +44,7 @@ const registerUser = async (req, res, next) => {
   }
 };
 
+// login controller
 const loginUser = async (req, res, next) => {
   try {
     // fetch data and validate
