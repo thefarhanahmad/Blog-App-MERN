@@ -32,7 +32,7 @@ const Register = () => {
     const toastId = toast.loading("Signing Up User...");
     try {
       const response = await axios.post(`${base_url}/auth/register`, user);
-      console.log("response user : ", response);
+      // console.log("response user : ", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         navigate("/login");

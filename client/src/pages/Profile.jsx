@@ -9,7 +9,7 @@ import BackButton from "../components/BackButton";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log("user : ", user);
+  // console.log("user : ", user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const Profile = () => {
     dispatch(removeUser());
     toast.success("Log Out successfull");
     navigate("/login");
-    console.log("User logged out");
+    // console.log("User logged out");
   };
 
   return (

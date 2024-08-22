@@ -33,7 +33,7 @@ const EditPost = () => {
 
     try {
       const response = await axios.put(`${baseUrl}/posts/${id}`, data);
-      console.log("response : ", response);
+      // console.log("response : ", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         navigate("/");
@@ -49,7 +49,7 @@ const EditPost = () => {
   const getPostByIdToModify = async () => {
     try {
       const res = await axios.get(`${baseUrl}/posts/${id}`);
-      console.log("res: ", res.data.post);
+      // console.log("res: ", res.data.post);
       if (res.data.success) {
         setData({
           newTitle: res.data.post.title,

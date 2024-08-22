@@ -5,7 +5,7 @@ import BackButton from "../components/BackButton";
 
 const MyPosts = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log("post : ", user?.posts);
+  // console.log("post : ", user?.posts);
 
   const [posts, setPosts] = useState([]);
 

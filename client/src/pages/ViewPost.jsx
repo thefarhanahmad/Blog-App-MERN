@@ -24,7 +24,7 @@ const ViewPost = () => {
     setLoading(true);
     try {
       const response = await axios.get(`${base_url}/posts/${id}`);
-      console.log("response : ", response);
+      // console.log("response : ", response);
       setPost(response.data.post);
       setLoading(false);
     } catch (error) {
@@ -36,7 +36,7 @@ const ViewPost = () => {
     const toastId = toast.loading("Deleting Post...");
     try {
       const response = await axios.delete(`${base_url}/posts/${id}`);
-      console.log("response", response);
+      // console.log("response", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         navigate("/");

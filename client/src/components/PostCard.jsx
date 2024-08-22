@@ -28,7 +28,7 @@ const PostCard = ({ post, setPosts }) => {
     const toastId = toast.loading("Deleting Post...");
     try {
       const response = await axios.delete(`${base_url}/posts/${id}`);
-      console.log("response", response);
+      // console.log("response", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));

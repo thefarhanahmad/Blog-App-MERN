@@ -38,7 +38,7 @@ const Login = () => {
     const toastId = toast.loading("Logging User...");
     try {
       const response = await axios.post(`${base_url}/auth/login`, user);
-      console.log("response login user : ", response);
+      // console.log("response login user : ", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         localStorage.setItem("token", response.data.token);

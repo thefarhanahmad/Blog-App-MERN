@@ -18,7 +18,7 @@ const createPost = async (req, res, next) => {
     //  fetch image and validate
     const imageFile = req.files.image;
     // console.log("image file : ",imageFile)
-    const supportedType = ["jpg", "jpeg", "png"];
+    const supportedType = ["jpg", "jpeg", "png", "webp"];
     const fileType = imageFile.name.split(".")[1].toLowerCase();
     const supportedFile = supportedType.includes(fileType);
 
@@ -44,7 +44,7 @@ const createPost = async (req, res, next) => {
             message: "getting some error while uploading image",
           });
         }
-        console.log("image uploaded : ", result);
+        // console.log("image uploaded : ", result);
       }
     );
 
@@ -57,7 +57,7 @@ const createPost = async (req, res, next) => {
 
     // fetcing user to push post in userpost
     const user = req.user;
-    console.log("user in post controller from req user : ", user);
+    // console.log("user in post controller from req user : ", user);
 
     // update users and push created post in logged in user
     const updatedUserPost = await User.findByIdAndUpdate(
@@ -157,8 +157,8 @@ const updatePost = async (req, res, next) => {
     const { id } = req.params;
     const { newTitle, newDescription } = req.body;
 
-    console.log("post id", id);
-    console.log("new title and desc", newTitle, newDescription);
+    // console.log("post id", id);
+    // console.log("new title and desc", newTitle, newDescription);
 
     const updatedPost = await Post.findByIdAndUpdate(
       id,

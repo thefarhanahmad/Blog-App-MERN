@@ -15,7 +15,7 @@ const CreatePostForm = () => {
   // state variable declared
   const { user } = useSelector((state) => state.auth);
   const UserId = user?._id;
-  console.log("user : ", user);
+  // console.log("user : ", user);
 
   const [data, setData] = useState({
     title: "",
@@ -28,7 +28,7 @@ const CreatePostForm = () => {
 
   //   handle change for image
   const handleImageChange = (e) => {
-    console.log("e in image change : ", e.target.files[0]);
+    // console.log("e in image change : ", e.target.files[0]);
     setImage(e.target.files[0]);
   };
 
@@ -43,19 +43,19 @@ const CreatePostForm = () => {
     const toastId = toast.loading("Uploading Post...");
     try {
       const formData = new FormData();
-      console.log("form data : ", formData);
+      // console.log("form data : ", formData);
       formData.append("title", data.title);
       formData.append("description", data.description);
       formData.append("UserId", UserId);
       formData.append("image", image);
-      console.log("formdata after appended : ", formData);
+      // console.log("formdata after appended : ", formData);
       const response = await axios.post(`${baseUrl}/posts`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response : ", response);
+      // console.log("response : ", response);
       if (response.data.success) {
         toast.success(response.data.message, { id: toastId });
         navigate("/");

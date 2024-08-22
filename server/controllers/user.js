@@ -3,7 +3,7 @@ const user = async (req, res, next) => {
   try {
     const user = req.user;
 
-    console.log("user from req user : ", user);
+    // console.log("user from req user : ", user);
 
     if (!user) {
       return res.status(400).json({
