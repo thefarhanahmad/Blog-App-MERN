@@ -29,15 +29,15 @@ const Register = () => {
   // function to register user
   const registerHandler = async (e) => {
     e.preventDefault();
+    const toastId = toast.loading("Signing Up User...");
     try {
-      if (user.username != "" || user.email != "" || user.password != "") {
-        // posting data on api
-        const response = await axios.post(`${base_url}/auth/register`, user);
-        // console.log("response user : ", response);
-        toast.success("Registration successfull");
+      const response = await axios.post(`${base_url}/auth/register`, user);
+      console.log("response user : ", response);
+      if (response.data.success) {
+        toast.success(response.data.message, { id: toastId });
         navigate("/login");
       } else {
-        toast.error("All fields are equired");
+        toast.error(response.data.message, { id: toastId });
       }
 
       // making user data values as empty
@@ -48,7 +48,7 @@ const Register = () => {
       });
     } catch (error) {
       console.log("error occured while register user : ", error);
-      toast.error("Registration failed!");
+      toast.error(error.response.data.message, { id: toastId });
     }
   };
 
@@ -74,7 +74,6 @@ const Register = () => {
               placeholder="Enter username"
               value={user.username}
               onChange={userHandler}
-              required
               className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
@@ -89,7 +88,6 @@ const Register = () => {
               placeholder="Enter email"
               value={user.email}
               onChange={userHandler}
-              required
               className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
@@ -104,12 +102,14 @@ const Register = () => {
               placeholder="Enter password"
               value={user.password}
               onChange={userHandler}
-              required
               className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
 
-          <button className="bg-sky-700 text-white w-fit rounded py-1 px-5" type="submit">
+          <button
+            className="bg-sky-700 text-white w-fit rounded py-1 px-5"
+            type="submit"
+          >
             Register Now
           </button>
         </form>

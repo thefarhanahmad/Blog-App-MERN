@@ -30,7 +30,7 @@ const createPost = async (req, res, next) => {
     }
 
     const options = {
-      folder: "BlogPost",
+      folder: "BlogPost_Zupay",
       resource_type: "image",
     };
 
@@ -57,7 +57,7 @@ const createPost = async (req, res, next) => {
 
     // fetcing user to push post in userpost
     const user = req.user;
-    // console.log("user in post controller : ", user);
+    console.log("user in post controller from req user : ", user);
 
     // update users and push created post in logged in user
     const updatedUserPost = await User.findByIdAndUpdate(
@@ -71,7 +71,7 @@ const createPost = async (req, res, next) => {
       { new: true }
     ).populate("posts");
 
-    console.log("Updated user posts : ",updatedUserPost)
+    // console.log("Updated user posts : ", updatedUserPost);
     res.status(200).json({
       success: true,
       message: "Post Created successfully",
@@ -105,15 +105,15 @@ const getAllPost = async (req, res, next) => {
 // find post by id handler
 const findPostById = async (req, res, next) => {
   try {
-    const { postId } = req.params;
-    if (!postId) {
+    const { id } = req.params;
+    if (!id) {
       return res.status(400).json({
         success: false,
         message: "Failed to fetch id",
       });
     }
 
-    const post = await Post.findById(postId).populate("author");
+    const post = await Post.findById(id).populate("author");
 
     return res.status(200).json({
       success: true,
@@ -128,15 +128,15 @@ const findPostById = async (req, res, next) => {
 // deleted post handler
 const deletePost = async (req, res, next) => {
   try {
-    const { postId } = req.params;
-    if (!postId) {
+    const { id } = req.params;
+    if (!id) {
       return res.status(400).json({
         success: false,
         message: "Failed to fetch id",
       });
     }
 
-    const post = await Post.findByIdAndDelete(postId);
+    const post = await Post.findByIdAndDelete(id);
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
@@ -154,14 +154,14 @@ const deletePost = async (req, res, next) => {
 // update post handler
 const updatePost = async (req, res, next) => {
   try {
-    const { postId } = req.params;
+    const { id } = req.params;
     const { newTitle, newDescription } = req.body;
 
-    console.log("post id", postId);
+    console.log("post id", id);
     console.log("new title and desc", newTitle, newDescription);
 
     const updatedPost = await Post.findByIdAndUpdate(
-      postId,
+      id,
       {
         title: newTitle,
         description: newDescription,

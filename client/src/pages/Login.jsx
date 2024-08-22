@@ -9,8 +9,8 @@ const Login = () => {
   // declaring state variables
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "test@user.com",
+    password: "test123",
   });
 
   // console.log("user : ", user);
@@ -32,25 +32,21 @@ const Login = () => {
     });
   };
 
-  // function to register user
+  // function to login user
   const loginHandler = async (e) => {
     e.preventDefault();
+    const toastId = toast.loading("Logging User...");
     try {
-      if (user.email != "" || user.password != "") {
-        // posting data on api
-        const response = await axios.post(`${base_url}/auth/login`, user);
-        // console.log("response user : ",response)
-
-        // set token in local storage
+      const response = await axios.post(`${base_url}/auth/login`, user);
+      console.log("response login user : ", response);
+      if (response.data.success) {
+        toast.success(response.data.message, { id: toastId });
         localStorage.setItem("token", response.data.token);
         dispatch(setToken(response.data.token));
-        // successfull toast
-        toast.success("Logged In successfull");
         navigate("/");
       } else {
-        toast.error("All fields are equired");
+        toast.error(response.data.message, { id: toastId });
       }
-
       // making user data values as empty
       setUser({
         email: "",
@@ -58,7 +54,7 @@ const Login = () => {
       });
     } catch (error) {
       console.log("error occured while login user : ", error);
-      toast.error("Login failed!");
+      toast.error(error.response.data.message, { id: toastId });
     }
   };
 
@@ -82,7 +78,6 @@ const Login = () => {
               placeholder="Enter email"
               value={user.email}
               onChange={userHandler}
-              required
               className="bg-gray-200 border py-1 px-3 rounded text-gray-800 border-gray-600 shadow outline-none"
             />
           </div>
@@ -97,12 +92,14 @@ const Login = () => {
               placeholder="Enter password"
               value={user.password}
               onChange={userHandler}
-              required
               className="bg-gray-200 border py-1 text-gray-800 px-3 rounded  border-gray-600 shadow outline-none"
             />
           </div>
 
-          <button className="bg-sky-700 text-white w-fit rounded py-1 px-5" type="submit">
+          <button
+            className="bg-sky-700 text-white w-fit rounded py-1 px-5"
+            type="submit"
+          >
             Login
           </button>
         </form>

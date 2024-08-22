@@ -3,6 +3,7 @@ import axios from "axios";
 import PostCard from "../components/PostCard";
 import Spinner from "../components/Spinner";
 import { IoIosSearch } from "react-icons/io";
+import NoPostsFound from "../components/NoPostFound";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ const Home = () => {
   const getAllPosts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${baseUrl}/post/all-posts`);
+      const response = await axios.get(`${baseUrl}/posts`);
       // console.log("posts response : ", response);
 
       setPosts(response.data.posts);
@@ -68,9 +69,9 @@ const Home = () => {
       ) : (
         <div>
           {posts.length === 0 ? (
-            <span className="w-[100vw] flex justify-center text-3xl">
-              No Post found
-            </span>
+            <>
+              <NoPostsFound />
+            </>
           ) : (
             <div className="flex flex-col gap-5">
               {posts.map((post) => {

@@ -29,36 +29,41 @@ const EditPost = () => {
   //   handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const toastId = toast.loading("Editing Post...");
 
     try {
-      const response = await axios.put(
-        `${baseUrl}/post/update-post/${id}`,
-        data
-      );
-      //   console.log("response : ", response);
-      toast.success("Post updated successfully!");
-      navigate("/");
+      const response = await axios.put(`${baseUrl}/posts/${id}`, data);
+      console.log("response : ", response);
+      if (response.data.success) {
+        toast.success(response.data.message, { id: toastId });
+        navigate("/");
+      } else {
+        toast.error(response.data.message, { id: toastId });
+      }
     } catch (error) {
-      console.log("error during edit post : ", error);
+      console.log("error while edit post : ", error);
+      toast.error(error.response.data.message, { id: toastId });
     }
   };
 
-  const editData = async ()=>{
+  const getPostByIdToModify = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/post/post-details/${id}`)
-      console.log("res: ",res.data.post)
-      setData({
-        newTitle:res.data.post.title,
-        newDescription:res.data.post.description
-      })
+      const res = await axios.get(`${baseUrl}/posts/${id}`);
+      console.log("res: ", res.data.post);
+      if (res.data.success) {
+        setData({
+          newTitle: res.data.post.title,
+          newDescription: res.data.post.description,
+        });
+      }
     } catch (error) {
-      console.log("error in editpage while fetch post")
+      console.log("error in editpage while fetch post");
     }
-  }
+  };
 
-useEffect(()=>{
-editData()
-},[id])
+  useEffect(() => {
+    getPostByIdToModify();
+  }, [id]);
 
   return (
     <div className="sm:w-[80%] h-screen w-[95%] mx-auto pt-8 sm:pt-14">
@@ -89,7 +94,7 @@ editData()
           <div className="flex flex-col ">
             <label htmlFor="newDescription">Description</label>
             <textarea
-            rows={8}
+              rows={8}
               name="newDescription"
               placeholder="new description..."
               value={data.newDescription}

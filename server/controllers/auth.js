@@ -69,7 +69,7 @@ const loginUser = async (req, res, next) => {
     if (!matchedPassword) {
       return res.status(400).json({
         success: false,
-        message: "Invalid Password",
+        message: "Invalid Credencials",
       });
     }
 

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import BackButton from "./BackButton";
 
 const CreatePostForm = () => {
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -14,7 +15,7 @@ const CreatePostForm = () => {
   // state variable declared
   const { user } = useSelector((state) => state.auth);
   const UserId = user?._id;
-  // console.log("user : ", UserId);
+  console.log("user : ", user);
 
   const [data, setData] = useState({
     title: "",
@@ -39,7 +40,7 @@ const CreatePostForm = () => {
   //   handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const toastId = toast.loading("Uploading Post...");
     try {
       const formData = new FormData();
       console.log("form data : ", formData);
@@ -48,22 +49,30 @@ const CreatePostForm = () => {
       formData.append("UserId", UserId);
       formData.append("image", image);
       console.log("formdata after appended : ", formData);
-      const response = await axios.post(`${baseUrl}/post/create`, formData, {
+      const response = await axios.post(`${baseUrl}/posts`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log("response : ", response);
-      toast.success("Post created successfully!");
-      navigate("/");
+      console.log("response : ", response);
+      if (response.data.success) {
+        toast.success(response.data.message, { id: toastId });
+        navigate("/");
+      } else {
+        toast.error(response.data.message, { id: toastId });
+      }
     } catch (error) {
-      console.log("error during create post : ", error);
+      console.log("error while creating post : ", error);
+      toast.error(error.response.data.message, { id: toastId });
     }
   };
 
   return (
     <div className="sm:w-[80%] w-[95%] mx-auto pt-4 sm:pt-14">
+      <div className="m-auto mb-5">
+        <BackButton />
+      </div>
       <span className="text-xs text-gray-500">
         Hey{" "}
         <span className="text-sm font-semibold text-gray-700">

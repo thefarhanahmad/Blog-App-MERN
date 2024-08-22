@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [token]);
 
   return (
     <div className="w-full bg-gray-200">

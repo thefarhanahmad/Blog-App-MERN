@@ -25,13 +25,19 @@ const PostCard = ({ post, setPosts }) => {
   const base_url = import.meta.env.VITE_API_BASE_URL;
   // function to delete post
   const deletePost = async (id) => {
+    const toastId = toast.loading("Deleting Post...");
     try {
-      const response = await axios.delete(`${base_url}/post/delete-post/${id}`);
+      const response = await axios.delete(`${base_url}/posts/${id}`);
       console.log("response", response);
-      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
-      toast.success("Post Deleted");
+      if (response.data.success) {
+        toast.success(response.data.message, { id: toastId });
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
+      } else {
+        toast.error(response.data.message, { id: toastId });
+      }
     } catch (error) {
       console.log("error while deleting post");
+      toast.error(response.data.message, { id: toastId });
     }
   };
 
